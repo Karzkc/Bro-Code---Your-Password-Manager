@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+
+@layer components {
+    .form-input {
+        @apply rounded-[8px] border border-black text-center text-black placeholder:text-gray-600 placeholder:text-center outline-none bg-transparent px-4 py-2 h-10;
+    }
+}
+
+@keyframes thumb {
+    0% {
+        color: transparent;
+    }
+
+    100% {
+        color: white;
+    }
+}
+
+.logo-thumb {
+    animation: thumb 1s ease-in-out 0ms infinite alternate;
+}
+
+.tooltip {
+    background-color: transparent !important;
+    border: 1px solid black;
+    color: black !important;
+    font-size: 0.75rem !important;
+    padding: 6px 10px !important;
+    border-radius: 6px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+    max-width: 200px !important;
+    text-align: center !important;
+    z-index: 999 !important;
+    transition: all 0.2s ease-in-out !important;
+    height: 28px !important;
+    width: max-content !important;
+    font-size: small !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    visibility: 0.15;
+}
+.copy {
+    background-color: #314158 !important;
+    color: white !important;
+    font-size: 0.75rem !important;
+    padding: 6px 10px !important;
+    border-radius: 6px !important;
+    max-width: 200px !important;
+    text-align: center !important;
+    z-index: 999 !important;
+    transition: all 0.2s ease-in-out !important;
+    height: 28px !important;
+    width: max-content !important;
+    font-size: small !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    visibility: 0.15;
+}
