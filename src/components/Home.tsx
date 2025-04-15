@@ -3,10 +3,14 @@ import EyeOpen from '../assets/EyeOpen';
 import Lock from '../assets/Lock';
 import Submit from "../assets/Submit";
 import { Tooltip } from 'react-tooltip';
-import { useEffect, useState } from "react";
+import toast, { Toaster } from 'react-hot-toast';
+
+import { useContext, useEffect, useState } from "react";
+import { FormContext } from '../context/FormContext';
 import { NavLink } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
+
 
 
 
@@ -16,22 +20,17 @@ const Home = () => {
     useEffect(() => {
         const savedPasswords = localStorage.getItem("password");
         if (savedPasswords) {
-          setPasswordList(JSON.parse(savedPasswords));
+            setPasswordList(JSON.parse(savedPasswords));
         }
-      }, []);
+    }, []);
 
-    // useEffect(() => {
-    //     let password = localStorage.getItem("passwords");
-    //     if (password) {
-    //         setPasswordList(JSON.parse(password))
-    //     }
+    const formContext = useContext(FormContext);
+    if (!formContext) return null;
+    const { form, setForm } = formContext;
 
-
-    // }, [])
- 
     const [pass_show, setPass_show] = useState(false);
-    const [form, setForm] = useState({ url: "", username: "", password: "" })
-    const [passwordList, setPasswordList] = useState<{ id:any; url: string; username: string; password: string }[]>([])
+    // const [form, setForm] = useState({ url: "", username: "", password: "" })
+    const [passwordList, setPasswordList] = useState<{ id: any; url: string; username: string; password: string }[]>([])
     const [btnPressed, setBtnPressed] = useState(false);
     let isEmpty: boolean = !(form.url && form.username && form.password)
 
@@ -39,27 +38,49 @@ const Home = () => {
         setPass_show(!pass_show)
     }
 
+    const notify = (popup: any,) => toast(<h6>{popup}</h6>, {
+        duration: 2000,
+        position: 'top-center',
+        style: { "height": "40px", "width": "max-contnet" },
+        className: '!bg-white !decoration-0 !shadow !font-medium',
+        icon: "✅",
+        iconTheme: {
+            primary: '#000',
+            secondary: '#fff',
+        },
+        ariaProps: {
+            role: 'status',
+            'aria-live': 'polite',
+        },
+        removeDelay: 1000,
+    });
+
     const submitPassword = () => {
         if (!isEmpty) {
-          const newPassword = {
-            url: form.url,
-            username: form.username,
-            password: form.password,
-            id: uuidv4(),
-          };
-      
-          setPasswordList((prev) => {
-            const updatedList = [...prev, newPassword]; 
-            localStorage.setItem("password", JSON.stringify(updatedList)); 
-            return updatedList; 
-          });
-          
-          navigate("/Passwords")
+            const newPassword = {
+                url: form.url,
+                username: form.username,
+                password: form.password,
+                id: uuidv4(),
+            };
+
+            setPasswordList((prev) => {
+                const updatedList = [...prev, newPassword];
+                localStorage.setItem("password", JSON.stringify(updatedList));
+                return updatedList;
+            });
+
+
+            navigate("/Passwords");
+
+            notify("Field Added!")
+
         }
         setBtnPressed(true);
-      };
-    
-    const handleForm = (e:any) => {
+        setForm({ url: "", username: "", password: "" })
+    };
+
+    const handleForm = (e: any) => {
         setForm({ ...form, [e.target.name]: e.target.value })
     }
 
@@ -68,7 +89,7 @@ const Home = () => {
     return (
         <>
 
-            <div className="container select-none p-10 shadow-2xl bg-transparent backdrop-blur-2xl border-black rounded-2xl h-128 text-black my-5  m-auto flex flex-col items-center justify-center">
+            <div className="container  select-none p-10 shadow-2xl bg-transparent backdrop-blur-2xl border-black rounded-2xl h-128 text-black my-5  m-auto flex flex-col items-center justify-center">
                 <div className=" flex justify-center items-center heading  md:text-3xl text-2xl">
                     <span>Bro Code - Your Password Manager</span>
                     {<Lock />}
@@ -83,6 +104,7 @@ const Home = () => {
                         type="url"
                         name="url"
                         id="url"
+                        maxLength={100}
                         placeholder="Enter the Website URL"
                         className="form-input mt-10 md:w-180 sm:w-100 w-60"
                         onChange={handleForm}
@@ -93,6 +115,7 @@ const Home = () => {
                         type="text"
                         name="username"
                         id="username"
+                        maxLength={20}
                         placeholder="Enter the Username or Email"
                         className="form-input mt-5 md:w-180 sm:w-100 w-60"
                         onChange={handleForm}
@@ -104,6 +127,7 @@ const Home = () => {
                             type={pass_show ? "text" : "password"}
                             name="password"
                             id="password"
+                            maxLength={20}
                             placeholder="Enter the Password"
                             className="form-input md:w-full sm:w-100 w-60 bg-transparent py-2 px-4"
                             onChange={handleForm}
@@ -111,7 +135,7 @@ const Home = () => {
                             required
                         />
 
-                        <span data-tooltip-id="Show" className="absolute  right-4 top-[22px] -translate-y-1/2 z-10 flex items-center justify-center">
+                        <span className="absolute  right-4 top-[22px] -translate-y-1/2 z-10 flex items-center justify-center">
                             {pass_show ?
                                 <button onClick={togglePassword}><EyeClose /></button>
 
@@ -120,7 +144,6 @@ const Home = () => {
 
                             }
                         </span>
-                        <Tooltip arrowColor="#08a88a" id="Show" place="bottom" content="Show or Hide Password" className="tooltip" />
 
                     </div> <br />
                     {btnPressed && isEmpty && (
@@ -134,6 +157,7 @@ const Home = () => {
                     >
                         <Submit />
                         <span className="font-semibold ml-5">Add Password</span>
+                        <Toaster />
                     </button>
                     <Tooltip arrowColor="#08a88a" id="Submit" place="right" content="Submit Details" className="tooltip" />
 
@@ -144,7 +168,7 @@ const Home = () => {
             </div>
 
             {passwordList.length > 0 && <div className="show-password flex items-center justify-center h-14 w-64 m-auto mt-0 mb-15 rounded-md shadow-md">
-                <NavLink 
+                <NavLink
                     data-tooltip-id="HomePass"
                     to="/Passwords"
 

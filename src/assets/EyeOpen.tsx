@@ -8,6 +8,7 @@ const EyeOpen = () => {
                 trigger="hover"
                 stroke="bold"
                 state="hover-look-around"
+                className="icons"
                 style={{ width: '35px', height: '35px' , cursor:"pointer" }}>
             </lord-icon>
         </div>

@@ -9,6 +9,7 @@ const Edit = () => {
                 src="https://cdn.lordicon.com/exymduqj.json"
                 trigger="hover"
                 stroke="bold"
+                className="icons"
                 state="hover-line"
                 style={{ width: '25px', height: '25px' , cursor:"pointer" }}>            
             </lord-icon>

@@ -11,9 +11,10 @@ const Copy = () => {
                 <lord-icon
                     src="https://cdn.lordicon.com/fikcyfpp.json"
                     trigger="hover"
+                    className="icons"
                     stroke="bold"
                     colors="primary:#000000,secondary:#2b6261"
-                    style={{ width: '25px', height: '25px', cursor: "pointer", position: "inline" }}>
+                    style={{ width: '25px', height: '25px', cursor: "pointer", position: "inline"  }}>
                 </lord-icon>
             </div>
             <Tooltip arrowColor="#08a88a" id="Copy" place="right" content="Copy content" className="copy" />

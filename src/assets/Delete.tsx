@@ -8,6 +8,7 @@ const Delete = () => {
                 <lord-icon
                     src="https://cdn.lordicon.com/hwjcdycb.json"
                     trigger="hover"
+                    className="icons"
                     stroke="bold"
                     style={{ width: '25px', height: '25px' , cursor:"pointer" }}>
                 </lord-icon>
