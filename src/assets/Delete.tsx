@@ -3,6 +3,7 @@ import { Player } from '@lordicon/react';
 import { Tooltip } from 'react-tooltip';
 
 import ICON from '../assets/delete.json';
+import React from 'react';
 
 export default function PlayOnce() {    
   const playerRef = useRef<Player>(null);
