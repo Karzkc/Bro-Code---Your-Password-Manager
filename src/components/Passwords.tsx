@@ -3,6 +3,9 @@ import { useLocation } from 'react-router-dom';
 import Copy from '../assets/Copy';
 import EyeClose from '../assets/EyeClose';
 import EyeOpen from '../assets/EyeOpen';
+import lottie from "lottie-web";
+import { defineElement } from "@lordicon/element";
+defineElement(lottie.loadAnimation);
 import toast, { Toaster } from 'react-hot-toast';
 import Edit from '../assets/Edit';
 import Delete from '../assets/Delete';
@@ -16,7 +19,6 @@ const Passwords = () => {
   const location = useLocation();
   const [passwords, setPasswords] = useState<any[]>([]);
   const [pass_show, setPass_show] = useState(false);
-
   if (!formContext) return null;
   const { setForm } = formContext;
 

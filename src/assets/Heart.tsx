@@ -1,18 +1,22 @@
+import { useEffect, useRef } from 'react';
+import { Player } from '@lordicon/react';
 
-const Heart = () => {
+import ICON from '../assets/heart.json';
+
+export default function PlayOnce() {    
+  const playerRef = useRef<Player>(null);
+  
+    useEffect(() => {
+        playerRef.current?.playFromBeginning();
+    }, [])
+
     return (
-        <div>
-            <lord-icon
-                src="https://cdn.lordicon.com/aydxrkfl.json"
-                trigger="loop"
-                delay= "300"
-                className="icons"
-                stroke="bold"
-                state="in-reveal"
-                style={{ width: '50px', height: '50px', cursor: "pointer" }}>
-            </lord-icon>
+        <div className='cursor-pointer'>
+            <Player 
+            ref={playerRef} 
+            icon={ ICON }
+            size={55}
+        />
         </div>
-    )
+    );
 }
-
-export default Heart

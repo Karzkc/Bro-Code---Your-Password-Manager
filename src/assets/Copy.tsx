@@ -1,24 +1,26 @@
+import { useEffect, useRef } from 'react';
+import { Player } from '@lordicon/react';
 import { Tooltip } from 'react-tooltip';
+import ICON from '../assets/copy.json';
 
-<style>
+export default function PlayOnce() {    
+  const playerRef = useRef<Player>(null);
+  
+    useEffect(() => {
+        playerRef.current?.playFromBeginning();
+    }, [])
 
-</style>
-const Copy = () => {
     return (
         <>
-            <div data-tooltip-id="Copy" className='hover:!scale-110 ease-in-out duration-100 '>
-                <lord-icon
-                    src="https://cdn.lordicon.com/fikcyfpp.json"
-                    trigger="hover"
-                    className="icons"
-                    stroke="bold"
-                    colors="primary:#000000,secondary:#2b6261"
-                    style={{ width: '25px', height: '25px', cursor: "pointer", position: "inline"  }}>
-                </lord-icon>
-            </div>
-            <Tooltip arrowColor="#08a88a" id="Copy" place="right" content="Copy content" className="copy" />
+        <div data-tooltip-id="copy" className='cursor-pointer '>
+            <Player 
+            ref={playerRef} 
+            icon={ ICON }
+            size={35}
+        />
+        </div>
+        <Tooltip arrowColor="#08a88a" id="copy" place="top" content="Copy Content" className="tooltip" />
         </>
-    )
+        
+    );
 }
-
-export default Copy

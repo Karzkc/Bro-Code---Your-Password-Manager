@@ -1,16 +1,26 @@
+import { useEffect, useRef } from 'react';
+import { Player } from '@lordicon/react';
 
-const Lock = () => {
+import ICON from '../assets/lock.json';
+
+export default function PlayOnce() {    
+  const playerRef = useRef<Player>(null);
+  
+    useEffect(() => {
+        playerRef.current?.playFromBeginning();
+    }, [])
+
     return (
-        <div>
-            <lord-icon
-                src="https://cdn.lordicon.com/fgxwhgfp.json"
-                trigger="hover"
-                stroke="bold"
-                className="icons"
-                style={{ width: '70px', height: '70px' , cursor:"pointer" }}>
-            </lord-icon>
+        <>
+        
+        <div className='cursor-pointer'>
+            <Player 
+            ref={playerRef} 
+            icon={ ICON }
+            size={65}
+        />
         </div>
-    );
-};
+        </>
 
-export default Lock;
+    );
+}

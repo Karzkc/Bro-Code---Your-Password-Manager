@@ -1,17 +1,25 @@
+import { useEffect, useRef } from 'react';
+import { Player } from '@lordicon/react';
 
-const Submit = () => {
+import ICON from '../assets/submit.json';
+
+export default function PlayOnce() {
+    const playerRef = useRef<Player>(null);
+
+    useEffect(() => {
+        playerRef.current?.playFromBeginning();
+    }, [])
+
     return (
-        <div>
-            <lord-icon
-                src="https://cdn.lordicon.com/navborva.json"
-                trigger="hover"
-                className="icons"
-                stroke="bold"
-                className = "mt-3"
-                style={{ width: '40px', height: '40px' , cursor:"pointer" }}>
-            </lord-icon>
+        <>
+        <div className='cursor-pointer'>
+            <Player 
+            ref={playerRef} 
+            icon={ ICON }
+            size={45}
+        />
         </div>
-    )
-}
+        </>
 
-export default Submit
+    );
+}

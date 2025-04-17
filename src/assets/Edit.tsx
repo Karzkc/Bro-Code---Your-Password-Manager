@@ -1,24 +1,28 @@
+import { useEffect, useRef } from 'react';
+import { Player } from '@lordicon/react';
 import { Tooltip } from 'react-tooltip';
 
+import ICON from '../assets/edit.json';
 
-const Edit = () => {
+export default function PlayOnce() {    
+  const playerRef = useRef<Player>(null);
+  
+    useEffect(() => {
+        playerRef.current?.playFromBeginning();
+    }, [])
+
     return (
-       <>
-        <div data-tooltip-id="Edit">
-            <lord-icon
-                src="https://cdn.lordicon.com/exymduqj.json"
-                trigger="hover"
-                stroke="bold"
-                className="icons"
-                state="hover-line"
-                style={{ width: '25px', height: '25px' , cursor:"pointer" }}>            
-            </lord-icon>
+        <>
+        
+        <div data-tooltip-id="edit" className='cursor-pointer'>
+            <Player 
+            ref={playerRef} 
+            icon={ ICON }
+            size={35}
+        />
         </div>
-        <Tooltip arrowColor="#08a88a" id="Edit" place="top" content="Edit Field" className="copy" />
-       </>
+                <Tooltip arrowColor="#08a88a" id="edit" place="left" content="Edit field" className="tooltip" />
+        </>
 
-    )
+    );
 }
-
-export default Edit
- 

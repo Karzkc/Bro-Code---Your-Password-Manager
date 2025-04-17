@@ -1,18 +1,28 @@
-import React from 'react'
+import { useEffect, useRef } from 'react';
+import { Player } from '@lordicon/react';
+import { Tooltip } from 'react-tooltip';
 
-const EyeOpen = () => {
+import ICON from '../assets/eye-open.json';
+
+export default function PlayOnce() {    
+  const playerRef = useRef<Player>(null);
+  
+    useEffect(() => {
+        playerRef.current?.playFromBeginning();
+    }, [])
+
     return (
-        <div>
-            <lord-icon
-                src="https://cdn.lordicon.com/dicvhxpz.json"
-                trigger="hover"
-                stroke="bold"
-                state="hover-look-around"
-                className="icons"
-                style={{ width: '35px', height: '35px' , cursor:"pointer" }}>
-            </lord-icon>
+        <>
+        
+        <div data-tooltip-id="eye-open" className='cursor-pointer'>
+            <Player 
+            ref={playerRef} 
+            icon={ ICON }
+            size={35}
+        />
         </div>
-    )
-}
+        <Tooltip arrowColor="#08a88a" id="eye-open" place="top" content="See / Unsee Password" className="tooltip" />
+        </>
 
-export default EyeOpen
+    );
+}

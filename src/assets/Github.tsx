@@ -1,14 +1,24 @@
+import { useEffect, useRef } from 'react';
+import { Player } from '@lordicon/react';
 
-const Github = () => {
-  return (
-    <div>
-      <lord-icon
-        src="https://cdn.lordicon.com/jjxzcivr.json"
-        trigger="hover"
-        style={{ width: '50px', height: '50px' , cursor:"pointer" }}
-      ></lord-icon>
-    </div>
-  );
-};
 
-export default Github;
+import ICON from '../assets/github.json';
+
+export default function PlayOnce() {    
+  const playerRef = useRef<Player>(null);
+  
+    useEffect(() => {
+        playerRef.current?.playFromBeginning();
+    }, [])
+
+    return (
+        <div className='cursor-pointer'>
+            <Player 
+            ref={playerRef} 
+            icon={ ICON }
+            size={65}
+        />
+        </div>
+
+    );
+}
